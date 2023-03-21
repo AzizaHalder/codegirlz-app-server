@@ -17,7 +17,11 @@ const meetupSchema = new Schema(
         eventImage: { type: String, trim: true },
         // use "datetime-local" as form field input 
         eventDateAndTime: { type: String, required: [true, "Time and Date is required. Please tell more about your event!"] },
+        // the people attending
         userEventObjectId: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+        // who created it 
+        createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+
     },
     {
         // this second object adds extra properties: `createdAt` and `updatedAt`
