@@ -15,17 +15,15 @@ const app = express();
 require("./config")(app);
 
 // 👇 Start handling routes here
-const indexRoutes = require("./routes/index.routes");
-app.use("/", indexRoutes);
+app.use("/", require("./routes/index.routes"));
 
-const authRoutes = require("./routes/auth.routes");
-app.use("/auth", authRoutes);
+app.use("/auth", require("./routes/auth.routes"));
 
-const meetupRoutes = require("./routes/meetup.routes");
-app.use("/meetup", meetupRoutes);
+app.use("/meetup", require("./routes/meetup.routes"));
 
-const resourceRoutes = require("./routes/resource.routes");
-app.use("/resource", resourceRoutes);
+app.use("/resource", require("./routes/resource.routes"));
+
+app.use("/profile", require("./routes/profile.routes"));
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

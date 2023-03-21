@@ -51,7 +51,7 @@ router.get("/:meetupId", (req, res, next) => {
   }
 
   Meetup.findById(meetupId)
-    .then((meetup) => res.status(200).json(meetup))
+    .then((meetup) => res.status(200).json("meetup"))
     .catch((error) => res.json(error));
 });
 
