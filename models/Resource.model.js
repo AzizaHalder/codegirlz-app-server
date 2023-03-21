@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const resourcesSchema = new Schema(
+const resourceSchema = new Schema(
   {
     resourceTitle: { type: String, required: [true, "Title is required."] },
     resourceImage: {
@@ -30,6 +30,6 @@ const resourcesSchema = new Schema(
   }
 );
 
-const Resources = model("Resources", resourcesSchema);
+const Resource = model("Resource", resourceSchema);
 
-module.exports = Resources;
+module.exports = Resource;

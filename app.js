@@ -24,6 +24,9 @@ app.use("/auth", authRoutes);
 const meetupRoutes = require("./routes/meetup.routes");
 app.use("/meetup", meetupRoutes);
 
+const resourceRoutes = require("./routes/resource.routes");
+app.use("/resource", resourceRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
