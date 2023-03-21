@@ -12,8 +12,8 @@ const userSchema = new Schema(
     linkedin: { type: String, match: [/(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/, "Please use valid URL"] },
     github: { type: String, match: [/(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/, "Please use valid URL"] },
     newOpps: { type: Boolean, },
-    eventsAttended: [{type: Schema.Types.ObjectId, ref: 'Meetup'}],
-   
+    eventsAttended: [{ type: Schema.Types.ObjectId, ref: 'Meetup' }],
+
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
