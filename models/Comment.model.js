@@ -7,7 +7,7 @@ const commentSchema = new Schema(
       required: [true, "Cannot leave an empty comment."],
     },
     resource: [{ type: Schema.Types.ObjectId, ref: "Resource" }],
-    user: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    user: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
