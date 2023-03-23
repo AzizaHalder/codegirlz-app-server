@@ -22,6 +22,7 @@ const resourceSchema = new Schema(
       required: [true, "Please select a resource type."],
     },
     author: { type: Schema.Types.ObjectId, ref: "User" },
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

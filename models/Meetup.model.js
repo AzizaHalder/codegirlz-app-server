@@ -34,9 +34,9 @@ const meetupSchema = new Schema(
       ],
     },
     // the people attending
-    userEventObjectId: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    attendees: [{ type: Schema.Types.ObjectId, ref: "User" }],
     // who created it
-    createdBy: { type: Schema.Types.ObjectId, ref: "User" },
+    author: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

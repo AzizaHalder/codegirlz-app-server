@@ -21,6 +21,7 @@ router.post("/create", (req, res, next) => {
     resourceURL,
     resourceContent,
     resourceType,
+    author
   } = req.body;
 
   Resource.create({
@@ -29,6 +30,7 @@ router.post("/create", (req, res, next) => {
     resourceURL,
     resourceContent,
     resourceType,
+    author
   })
     .then((response) => res.json(response))
     .catch((error) => res.json(error));

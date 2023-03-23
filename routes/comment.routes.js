@@ -5,22 +5,18 @@ const mongoose = require("mongoose");
 const User = require("../models/User.model");
 const Comment = require("../models/Comment.model");
 const Resource = require("../models/Resource.model");
-const { response } = require("express");
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // POST /resource/:resourceId/comment --> post comment to a resource
 router.post("/:resourceId/comment", isAuthenticated, (req, res, next) => {
   const { comment, user } = req.body;
-  console.log(req.body);
   const { resourceId } = req.params;
-
   //   How do we access username / author in this route so we can display it with the comment
   //   do we need author in our comment routes to access the author name by using author Object Id with props
-
   Comment.create({
     comment: comment,
-    user: req.payload,
-    resourceId: resourceId,
+    author: user,
+    resource: resourceId,
   })
     .then((newComment) => {
       return Resource.findByIdAndUpdate(resourceId, {
@@ -31,11 +27,11 @@ router.post("/:resourceId/comment", isAuthenticated, (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// GET
+// GET all the comments
 router.get("/:resourceId/comment-list", isAuthenticated, (req, res, next) => {
   const { resourceId } = req.params;
 
-  Comment.find({ resourceId: resourceId })
+  Comment.find({ resource: resourceId })
     /*.populate("user")*/
     .then((userComment) => res.json(userComment))
     .catch((error) => res.json(error));

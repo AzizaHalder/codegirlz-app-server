@@ -24,6 +24,8 @@ router.post("/create", (req, res, next) => {
     eventDescription,
     eventImage,
     eventDateAndTime,
+    attendees,
+    author
   } = req.body;
 
   Meetup.create({
@@ -36,6 +38,8 @@ router.post("/create", (req, res, next) => {
     eventDescription,
     eventImage,
     eventDateAndTime,
+    attendees,
+    author
   })
     .then((response) => res.json(response))
     .catch((error) => res.json(error));
@@ -51,7 +55,7 @@ router.get("/:meetupId", (req, res, next) => {
   }
 
   Meetup.findById(meetupId)
-    .then((meetup) => res.status(200).json("meetup"))
+    .then((meetup) => res.status(200).json(meetup))
     .catch((error) => res.json(error));
 });
 
