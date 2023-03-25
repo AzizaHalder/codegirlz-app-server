@@ -21,11 +21,10 @@ router.post("/upload", fileUploader.single("eventImage"), (req, res, next) => {
     next(new Error("No image uploaded!"));
     return;
   }
-
   // Get the URL of the uploaded file and send it as a response.
   // 'fileUrl' can be any name, just make sure you remember to use the same when accessing it on the frontend
 
-  res.json({ imageUrl: req.file.path });
+  res.json({ eventImage: req.file.path });
 });
 
 // POST /meetup --> create a meetup
