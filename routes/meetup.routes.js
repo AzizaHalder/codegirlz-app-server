@@ -14,7 +14,7 @@ router.get("/", (req, res, next) => {
 });
 
 // POST Route that receives the image, sends it to Cloudinary via the fileUploader and returns the image URL
-router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
+router.post("/upload", fileUploader.single("eventImage"), (req, res, next) => {
   console.log("file is: ", req.file);
 
   if (!req.file) {
@@ -88,9 +88,6 @@ router.put("/edit/:meetupId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// Does it matter that this route is the same as the above route?
-// We talked about it with Omar but I don't remember if it was fine to have the same routes,
-// as long as the request was different (delete vs put), or if that also wasn't okay...
 // DELETE /meetup/edit/:meetupId --> delete meetup
 router.delete("/edit/:meetupId", (req, res, next) => {
   const { meetupId } = req.params;
