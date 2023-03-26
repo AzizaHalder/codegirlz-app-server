@@ -88,9 +88,17 @@ router.put("/edit/:meetupId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// DELETE /meetup/edit/6419f68980b77e9438d2e48c --> delete meetup
+// Does it matter that this route is the same as the above route?
+// We talked about it with Omar but I don't remember if it was fine to have the same routes,
+// as long as the request was different (delete vs put), or if that also wasn't okay...
+// DELETE /meetup/edit/:meetupId --> delete meetup
 router.delete("/edit/:meetupId", (req, res, next) => {
   const { meetupId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(meetupId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
 
   Meetup.findByIdAndDelete(meetupId)
     .then((deleteMeetup) => res.json(deleteMeetup))
