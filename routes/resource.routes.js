@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const fileUploader = require("../config/cloudinary.config");
 
 const Resource = require("../models/Resource.model");
 const User = require("../models/User.model");
@@ -13,6 +14,16 @@ router.get("/", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
+// POST /upload --> upload resource image file to cloudinary
+router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
+  if (!req.file) {
+    next(new Error("No file uploaded!"));
+    return;
+  }
+
+  res.json({ fileUrl: req.file.path });
+});
+
 // POST /resource --> create a resource
 router.post("/create", (req, res, next) => {
   const {
@@ -21,7 +32,7 @@ router.post("/create", (req, res, next) => {
     resourceURL,
     resourceContent,
     resourceType,
-    author
+    author,
   } = req.body;
 
   Resource.create({
@@ -30,7 +41,7 @@ router.post("/create", (req, res, next) => {
     resourceURL,
     resourceContent,
     resourceType,
-    author
+    author,
   })
     .then((response) => res.json(response))
     .catch((error) => res.json(error));
