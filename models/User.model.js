@@ -16,6 +16,7 @@ const userSchema = new Schema(
       type: String,
       // required: [true, "Current Location is required."],
     },
+    country: { type: String },
     city: { type: String },
     level: {
       type: String,
@@ -37,7 +38,7 @@ const userSchema = new Schema(
         "Please use valid URL",
       ],
     },
-    newOpp: { type: Boolean, required: [true, "Open to new opportunities preference is required."]  },
+    newOpp: { type: Boolean, required: [true, "Open to new opportunities preference is required."] },
     eventsAttended: [{ type: Schema.Types.ObjectId, ref: "Meetup" }],
   },
   {
