@@ -37,7 +37,7 @@ const userSchema = new Schema(
         "Please use valid URL",
       ],
     },
-    newOpps: { type: Boolean },
+    newOpp: { type: Boolean, required: [true, "Open to new opportunities preference is required."]  },
     eventsAttended: [{ type: Schema.Types.ObjectId, ref: "Meetup" }],
   },
   {
