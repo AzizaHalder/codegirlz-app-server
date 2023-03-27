@@ -18,7 +18,7 @@ const resourceSchema = new Schema(
     },
     resourceType: {
       type: String,
-      enum: ["Articles", "Podcasts", "Videos"],
+      enum: ["Article", "Podcast", "Video"],
       required: [true, "Please select a resource type."],
     },
     author: { type: Schema.Types.ObjectId, ref: "User" },

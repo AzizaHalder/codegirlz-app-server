@@ -1,3 +1,5 @@
+const express = require("express");
+const router = express.Router();
 const { Schema, model } = require("mongoose");
 
 const meetupSchema = new Schema(
