@@ -32,7 +32,7 @@ router.get("/:resourceId/comment-list", isAuthenticated, (req, res, next) => {
   const { resourceId } = req.params;
 
   Comment.find({ resource: resourceId })
-    /*.populate("user")*/
+    .populate("author")
     .then((userComment) => res.json(userComment))
     .catch((error) => res.json(error));
 });
