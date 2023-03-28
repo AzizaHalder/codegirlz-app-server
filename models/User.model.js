@@ -16,7 +16,6 @@ const userSchema = new Schema(
       type: String,
       // required: [true, "Current Location is required."],
     },
-    country: { type: String },
     city: { type: String },
     level: {
       type: String,
