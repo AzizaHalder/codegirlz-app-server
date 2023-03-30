@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+
 // ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
 
@@ -9,6 +10,8 @@ const jwt = require("jsonwebtoken");
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
+const Resource = require("../models/Resource.model");
+
 
 // Require necessary (isAuthenticated) middleware in order to control access to specific routes
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
@@ -89,7 +92,7 @@ router.post("/login", (req, res, next) => {
     .then((foundUser) => {
       if (!foundUser) {
         // If the user is not found, send an error response
-        res.status(401).json({ message: "User not found." });
+        res.status(401).json({ message: "Unable to authenticate the user" });
         return;
       }
 
@@ -126,6 +129,33 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
 
   // Send back the token payload object containing the user data
   res.status(200).json(req.payload);
+});
+
+// SAVE A RESOURCE 
+
+// How do we connect the two models? 
+
+router.post("/:resourceId/save", (req, res, next) => {
+  const { user } = req.body;
+  const { resourceId } = req.params;
+  User.findById(user)
+    .then((oneUser) => {
+      return User.findByIdAndUpdate(oneUser, {
+        $push: { myResource: resourceId },
+      }).select("-password -email")
+    })
+    .then((updatedUser) => res.json(updatedUser))
+    .catch((error) => res.json(error));
+});
+
+// GET A SAVED RESOURCE
+
+router.get("/save", (req, res, next) => {
+  const { user } = req.body;
+  User.find({ user }).select("-password -email")
+    .populate("myResource")
+    .then((savedResources) => res.json(savedResources))
+    .catch((error) => res.json(error));
 });
 
 module.exports = router;
