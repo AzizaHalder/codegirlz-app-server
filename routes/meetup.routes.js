@@ -9,6 +9,7 @@ const User = require("../models/User.model");
 // GET /meetup --> Show all Meetup Events
 router.get("/", (req, res, next) => {
   Meetup.find()
+    .populate("author")
     .then((allMeetup) => res.json(allMeetup))
     .catch((error) => res.json(error));
 });
