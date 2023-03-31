@@ -10,7 +10,6 @@ const Comment = require("../models/Comment.model");
 // GET /resource --> Show all Resources
 router.get("/", (req, res, next) => {
   Resource.find()
-    // .populate("author") // if I forget, this is commented out to let the page load and is an existing error 
     .populate("author", "-password")
     .then((allResource) => res.json(allResource))
     .catch((error) => res.json(error));
@@ -86,7 +85,5 @@ router.delete("/edit/:resourceId", (req, res, next) => {
     .then((deleteResource) => res.json(deleteResource))
     .catch((error) => res.json(error));
 });
-
-
 
 module.exports = router;
