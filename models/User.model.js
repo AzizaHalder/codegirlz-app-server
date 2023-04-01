@@ -38,6 +38,7 @@ const userSchema = new Schema(
     },
     newOpp: { type: Boolean, required: [true, "Open to new opportunities preference is required."] },
     eventsAttended: [{ type: Schema.Types.ObjectId, ref: "Meetup" }],
+    myResource: [{ type: Schema.Types.ObjectId, ref: "Resource" }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

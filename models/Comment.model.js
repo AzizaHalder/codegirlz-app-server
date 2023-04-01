@@ -6,7 +6,7 @@ const commentSchema = new Schema(
       type: String,
       required: [true, "Cannot leave an empty comment."],
     },
-    resource: [{ type: Schema.Types.ObjectId, ref: "Resource" }],
+    resource: { type: Schema.Types.ObjectId, ref: "Resource" },
     author: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
