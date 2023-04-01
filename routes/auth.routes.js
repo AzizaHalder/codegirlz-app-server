@@ -183,15 +183,23 @@ router.post("/:meetupId/attend", (req, res, next) => {
   User.findById(user)
     .then((oneUser) => {
       if (oneUser.eventsAttended.includes(meetupId)) {
-        return User.findByIdAndUpdate(oneUser, {
-          $pull: {
-            eventsAttended: { $in: [meetupID] },
+        return User.findByIdAndUpdate(
+          oneUser._id,
+          {
+            $pull: {
+              eventsAttended: { $in: [meetupId] },
+            },
           },
-        }).select("-password -email");
+          { new: true }
+        ).select("-password -email");
       } else {
-        return User.findByIdAndUpdate(oneUser, {
-          $push: { eventsAttended: meetupId },
-        }).select("-password -email");
+        return User.findByIdAndUpdate(
+          oneUser._id,
+          {
+            $push: { eventsAttended: meetupId },
+          },
+          { new: true }
+        ).select("-password -email");
       }
     })
     .then((updatedUser) => res.json(updatedUser))
@@ -208,7 +216,7 @@ router.get("/save", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// GET ATTEND MEETUP
+// GET ATTEND(SAVED) MEETUP
 router.get("/attend", (req, res, next) => {
   const { user } = req.body;
   User.find({ user })
