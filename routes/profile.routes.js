@@ -6,8 +6,8 @@ const User = require("../models/User.model");
 
 // GET /profile/:profileId --> show user profile
 
-router.get("/:profileId", (req, res, next) => {
-  const { profileId } = req.params;
+router.get("/", (req, res, next) => {
+  const profileId = req.payload._id;
 
   if (!mongoose.Types.ObjectId.isValid(profileId)) {
     res.status(400).json({ message: "Specified Profile Id is not valid" });
@@ -15,6 +15,7 @@ router.get("/:profileId", (req, res, next) => {
   }
 
   User.findById(profileId)
+    .select("-password -email")
     .then((profile) => res.status(200).json(profile))
     .catch((error) => res.json(error));
 });
