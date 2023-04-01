@@ -10,7 +10,7 @@ const Comment = require("../models/Comment.model");
 // GET /resource --> Show all Resources
 router.get("/", (req, res, next) => {
   Resource.find()
-    .populate("author")
+    .populate("author", "-password")
     .then((allResource) => res.json(allResource))
     .catch((error) => res.json(error));
 });
