@@ -20,10 +20,10 @@ const resourceSchema = new Schema(
       enum: ["Article", "Podcast", "Video"],
       required: [true, "Please select a resource type."],
     },
-    uploadVideo: {
+    videoUpload: {
       type: String,
     },
-    uploadPodcast: { type: String },
+    podcastUpload: { type: String },
     author: { type: Schema.Types.ObjectId, ref: "User" },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
