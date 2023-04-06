@@ -6,7 +6,6 @@ const resourceSchema = new Schema(
     resourceImage: {
       type: String,
       trim: true,
-      required: [true, "Image is required"],
     },
     // required
     resourceURL: {
