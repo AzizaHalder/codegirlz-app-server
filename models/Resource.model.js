@@ -23,6 +23,7 @@ const resourceSchema = new Schema(
     uploadVideo: {
       type: String,
     },
+    uploadPodcast: { type: String },
     author: { type: Schema.Types.ObjectId, ref: "User" },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },

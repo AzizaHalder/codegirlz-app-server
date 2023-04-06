@@ -35,9 +35,11 @@ router.post("/create", (req, res, next) => {
     resourceType,
     author,
     uploadVideo,
+    uploadPodcast,
   } = req.body;
 
   uploadVideo = uploadVideo.split("/watch?v=").pop();
+  uploadPodcast = uploadPodcast.split("/episode").pop();
 
   Resource.create({
     resourceTitle,
@@ -47,6 +49,7 @@ router.post("/create", (req, res, next) => {
     resourceType,
     author,
     uploadVideo,
+    uploadPodcast,
   })
     .then((response) => res.json(response))
     .catch((error) => res.json(error));
