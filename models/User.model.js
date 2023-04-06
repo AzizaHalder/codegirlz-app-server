@@ -24,19 +24,14 @@ const userSchema = new Schema(
     // is this a valid match for URL using regex?
     linkedin: {
       type: String,
-      match: [
-        /(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/,
-        "Please use valid URL",
-      ],
     },
     github: {
       type: String,
-      match: [
-        /(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/,
-        "Please use valid URL",
-      ],
     },
-    newOpp: { type: Boolean, required: [true, "Open to new opportunities preference is required."] },
+    newOpp: {
+      type: Boolean,
+      required: [true, "Open to new opportunities preference is required."],
+    },
     eventsAttended: [{ type: Schema.Types.ObjectId, ref: "Meetup" }],
     myResource: [{ type: Schema.Types.ObjectId, ref: "Resource" }],
   },
