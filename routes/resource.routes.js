@@ -27,14 +27,19 @@ router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
 
 // POST /resource --> create a resource
 router.post("/create", (req, res, next) => {
-  const {
+  let {
     resourceTitle,
     resourceImage,
     resourceURL,
     resourceContent,
     resourceType,
     author,
+    videoUpload,
+    podcastUpload,
   } = req.body;
+
+  videoUpload = videoUpload.split("/watch?v=").pop();
+  podcastUpload = podcastUpload.split("/episode").pop();
 
   Resource.create({
     resourceTitle,
@@ -43,6 +48,8 @@ router.post("/create", (req, res, next) => {
     resourceContent,
     resourceType,
     author,
+    videoUpload,
+    podcastUpload,
   })
     .then((response) => res.json(response))
     .catch((error) => res.json(error));

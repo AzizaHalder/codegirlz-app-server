@@ -6,7 +6,6 @@ const resourceSchema = new Schema(
     resourceImage: {
       type: String,
       trim: true,
-      required: [true, "Image is required"],
     },
     // required
     resourceURL: {
@@ -21,6 +20,10 @@ const resourceSchema = new Schema(
       enum: ["Article", "Podcast", "Video"],
       required: [true, "Please select a resource type."],
     },
+    videoUpload: {
+      type: String,
+    },
+    podcastUpload: { type: String },
     author: { type: Schema.Types.ObjectId, ref: "User" },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
