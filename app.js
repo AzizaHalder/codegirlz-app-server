@@ -21,13 +21,17 @@ app.use("/", require("./routes/index.routes"));
 
 app.use("/auth", require("./routes/auth.routes"));
 
-app.use("/meetup", isAuthenticated, require("./routes/meetup.routes"));
+app.use("/auth/recruiter", require("./routes/authRecruiter.routes"));
 
-app.use("/resource", isAuthenticated, require("./routes/resource.routes"));
+app.use("/meetup", require("./routes/meetup.routes"));
+
+app.use("/resource", require("./routes/resource.routes"));
 
 app.use("/profile", isAuthenticated, require("./routes/profile.routes"));
 
 app.use("/resource", isAuthenticated, require("./routes/comment.routes"));
+
+app.use("/recruiter", isAuthenticated, require("./routes/recruiter.routes"));
 
 // app.use("/resource", require("./routes/comment.routes"));
 

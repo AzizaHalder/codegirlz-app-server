@@ -6,6 +6,8 @@ const fileUploader = require("../config/cloudinary.config");
 const Meetup = require("../models/Meetup.model");
 const User = require("../models/User.model");
 
+const { isAuthenticated } = require("../middleware/jwt.middleware.js");
+
 // GET /meetup --> Show all Meetup Events
 router.get("/", (req, res, next) => {
   Meetup.find()
@@ -15,21 +17,26 @@ router.get("/", (req, res, next) => {
 });
 
 // POST Route that receives the image, sends it to Cloudinary via the fileUploader and returns the image URL
-router.post("/upload", fileUploader.single("eventImage"), (req, res, next) => {
-  console.log("file is: ", req.file);
+router.post(
+  "/upload",
+  fileUploader.single("eventImage"),
+  isAuthenticated,
+  (req, res, next) => {
+    console.log("file is: ", req.file);
 
-  if (!req.file) {
-    next(new Error("No image uploaded!"));
-    return;
+    if (!req.file) {
+      next(new Error("No image uploaded!"));
+      return;
+    }
+    // Get the URL of the uploaded file and send it as a response.
+    // 'fileUrl' can be any name, just make sure you remember to use the same when accessing it on the frontend
+
+    res.json({ fileUrl: req.file.path });
   }
-  // Get the URL of the uploaded file and send it as a response.
-  // 'fileUrl' can be any name, just make sure you remember to use the same when accessing it on the frontend
-
-  res.json({ fileUrl: req.file.path });
-});
+);
 
 // POST /meetup --> create a meetup
-router.post("/create", (req, res, next) => {
+router.post("/create", isAuthenticated, (req, res, next) => {
   const {
     eventName,
     eventType,
@@ -71,8 +78,22 @@ router.get("/attend", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
+// GET /meetup/:meetupId --> meetup details page
+router.get("/:meetupId", isAuthenticated, (req, res, next) => {
+  const { meetupId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(meetupId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
+
+  Meetup.findById(meetupId)
+    .then((meetup) => res.status(200).json(meetup))
+    .catch((error) => res.json(error));
+});
+
 // PUT /meetup/edit/6419f68980b77e9438d2e48c --> edit meetup
-router.put("/edit/:meetupId", (req, res, next) => {
+router.put("/edit/:meetupId", isAuthenticated, (req, res, next) => {
   const { meetupId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(meetupId)) {
@@ -86,7 +107,7 @@ router.put("/edit/:meetupId", (req, res, next) => {
 });
 
 // DELETE /meetup/edit/:meetupId --> delete meetup
-router.delete("/edit/:meetupId", (req, res, next) => {
+router.delete("/edit/:meetupId", isAuthenticated, (req, res, next) => {
   const { meetupId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(meetupId)) {
@@ -125,20 +146,6 @@ router.post("/:meetupId/attend", (req, res, next) => {
       }
     })
     .then((updatedUser) => res.json(updatedUser))
-    .catch((error) => res.json(error));
-});
-
-// GET /meetup/:meetupId --> meetup details page
-router.get("/:meetupId", (req, res, next) => {
-  const { meetupId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(meetupId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
-  Meetup.findById(meetupId)
-    .then((meetup) => res.status(200).json(meetup))
     .catch((error) => res.json(error));
 });
 
