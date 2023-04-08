@@ -55,18 +55,14 @@ router.post("/create", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// GET /resource/:resourceId --> resource details page
-router.get("/:resourceId", (req, res, next) => {
-  const { resourceId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(resourceId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
-  Resource.findById(resourceId)
-    .populate("comments")
-    .then((resource) => res.status(200).json(resource))
+// GET A SAVED RESOURCE
+router.get("/save", (req, res, next) => {
+  const userId = req.payload._id;
+  console.log("userId", userId);
+  User.findById(userId)
+    .select("-password -email")
+    .populate("myResource")
+    .then((savedResources) => res.json(savedResources))
     .catch((error) => res.json(error));
 });
 
@@ -90,6 +86,21 @@ router.delete("/edit/:resourceId", (req, res, next) => {
 
   Resource.findByIdAndDelete(resourceId)
     .then((deleteResource) => res.json(deleteResource))
+    .catch((error) => res.json(error));
+});
+
+// GET /resource/:resourceId --> resource details page
+router.get("/:resourceId", (req, res, next) => {
+  const { resourceId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(resourceId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
+
+  Resource.findById(resourceId)
+    .populate("comments")
+    .then((resource) => res.status(200).json(resource))
     .catch((error) => res.json(error));
 });
 
@@ -124,16 +135,6 @@ router.post("/:resourceId/save", (req, res, next) => {
       }
     })
     .then((updatedUser) => res.json(updatedUser))
-    .catch((error) => res.json(error));
-});
-
-// GET A SAVED RESOURCE
-router.get("/save", (req, res, next) => {
-  const { user } = req.body;
-  User.find({ user })
-    .select("-password -email")
-    .populate("myResource")
-    .then((savedResources) => res.json(savedResources))
     .catch((error) => res.json(error));
 });
 
