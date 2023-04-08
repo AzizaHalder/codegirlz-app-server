@@ -61,17 +61,13 @@ router.post("/create", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-// GET /meetup/:meetupId --> meetup details page
-router.get("/:meetupId", (req, res, next) => {
-  const { meetupId } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(meetupId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
-    return;
-  }
-
-  Meetup.findById(meetupId)
-    .then((meetup) => res.status(200).json(meetup))
+// GET ATTEND(SAVED) MEETUP
+router.get("/attend", (req, res, next) => {
+  const { user } = req.body;
+  User.find({ user })
+    .select("-password -email")
+    .populate("eventsAttended")
+    .then((attendMeetup) => res.json(attendMeetup))
     .catch((error) => res.json(error));
 });
 
@@ -100,6 +96,49 @@ router.delete("/edit/:meetupId", (req, res, next) => {
 
   Meetup.findByIdAndDelete(meetupId)
     .then((deleteMeetup) => res.json(deleteMeetup))
+    .catch((error) => res.json(error));
+});
+
+router.post("/:meetupId/attend", (req, res, next) => {
+  const { user } = req.body;
+  const { meetupId } = req.params;
+  User.findById(user)
+    .then((oneUser) => {
+      if (oneUser.eventsAttended.includes(meetupId)) {
+        return User.findByIdAndUpdate(
+          oneUser._id,
+          {
+            $pull: {
+              eventsAttended: { $in: [meetupId] },
+            },
+          },
+          { new: true }
+        ).select("-password -email");
+      } else {
+        return User.findByIdAndUpdate(
+          oneUser._id,
+          {
+            $push: { eventsAttended: meetupId },
+          },
+          { new: true }
+        ).select("-password -email");
+      }
+    })
+    .then((updatedUser) => res.json(updatedUser))
+    .catch((error) => res.json(error));
+});
+
+// GET /meetup/:meetupId --> meetup details page
+router.get("/:meetupId", (req, res, next) => {
+  const { meetupId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(meetupId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
+
+  Meetup.findById(meetupId)
+    .then((meetup) => res.status(200).json(meetup))
     .catch((error) => res.json(error));
 });
 

@@ -146,43 +146,4 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
 });
 
-router.post("/:meetupId/attend", (req, res, next) => {
-  const { user } = req.body;
-  const { meetupId } = req.params;
-  User.findById(user)
-    .then((oneUser) => {
-      if (oneUser.eventsAttended.includes(meetupId)) {
-        return User.findByIdAndUpdate(
-          oneUser._id,
-          {
-            $pull: {
-              eventsAttended: { $in: [meetupId] },
-            },
-          },
-          { new: true }
-        ).select("-password -email");
-      } else {
-        return User.findByIdAndUpdate(
-          oneUser._id,
-          {
-            $push: { eventsAttended: meetupId },
-          },
-          { new: true }
-        ).select("-password -email");
-      }
-    })
-    .then((updatedUser) => res.json(updatedUser))
-    .catch((error) => res.json(error));
-});
-
-// GET ATTEND(SAVED) MEETUP
-router.get("/attend", (req, res, next) => {
-  const { user } = req.body;
-  User.find({ user })
-    .select("-password -email")
-    .populate("eventsAttended")
-    .then((attendMeetup) => res.json(attendMeetup))
-    .catch((error) => res.json(error));
-});
-
 module.exports = router;
