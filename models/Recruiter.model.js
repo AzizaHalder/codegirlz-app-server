@@ -11,10 +11,14 @@ const recruiterSchema = new Schema(
       match: [/^\S+@\S+\.\S+$/, "Please use a valid email address"],
     },
     password: { type: String, required: [true, "Password is required."] },
-    name: { type: String, required: [true, "Name is required."] },
+    recruiterName: { type: String, required: [true, "Name is required."] },
+    company: { type: String, required: [true, "Company is required."] },
+    city: { type: String },
     linkedin: {
       type: String,
     },
+    createEvent: [{ type: Schema.Types.ObjectId, ref: "Meetup" }],
+    jobCandidates: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
@@ -24,4 +28,4 @@ const recruiterSchema = new Schema(
 
 const Recruiter = model("Recruiter", recruiterSchema);
 
-module.export = Recruiter;
+module.exports = Recruiter;
