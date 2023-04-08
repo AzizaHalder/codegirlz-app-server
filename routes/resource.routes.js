@@ -7,6 +7,8 @@ const Resource = require("../models/Resource.model");
 const User = require("../models/User.model");
 const Comment = require("../models/Comment.model");
 
+const { isAuthenticated } = require("../middleware/jwt.middleware.js");
+
 // GET /resource --> Show all Resources
 router.get("/", (req, res, next) => {
   Resource.find()
@@ -16,17 +18,22 @@ router.get("/", (req, res, next) => {
 });
 
 // POST /upload --> upload resource image file to cloudinary
-router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
-  if (!req.file) {
-    next(new Error("No file uploaded!"));
-    return;
-  }
+router.post(
+  "/upload",
+  isAuthenticated,
+  fileUploader.single("imageUrl"),
+  (req, res, next) => {
+    if (!req.file) {
+      next(new Error("No file uploaded!"));
+      return;
+    }
 
-  res.json({ fileUrl: req.file.path });
-});
+    res.json({ fileUrl: req.file.path });
+  }
+);
 
 // POST /resource --> create a resource
-router.post("/create", (req, res, next) => {
+router.post("/create", isAuthenticated, (req, res, next) => {
   let {
     resourceTitle,
     resourceImage,
@@ -56,7 +63,7 @@ router.post("/create", (req, res, next) => {
 });
 
 // GET A SAVED RESOURCE
-router.get("/save", (req, res, next) => {
+router.get("/save", isAuthenticated, (req, res, next) => {
   const userId = req.payload._id;
   console.log("userId", userId);
   User.findById(userId)
@@ -67,7 +74,7 @@ router.get("/save", (req, res, next) => {
 });
 
 // PUT /resource/edit/:resourceId --> edit resource
-router.put("/edit/:resourceId", (req, res, next) => {
+router.put("/edit/:resourceId", isAuthenticated, (req, res, next) => {
   const { resourceId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(resourceId)) {
@@ -81,7 +88,7 @@ router.put("/edit/:resourceId", (req, res, next) => {
 });
 
 // DELETE /resource/edit/:resourceId--> delete resource
-router.delete("/edit/:resourceId", (req, res, next) => {
+router.delete("/edit/:resourceId", isAuthenticated, (req, res, next) => {
   const { resourceId } = req.params;
 
   Resource.findByIdAndDelete(resourceId)
@@ -90,7 +97,7 @@ router.delete("/edit/:resourceId", (req, res, next) => {
 });
 
 // GET /resource/:resourceId --> resource details page
-router.get("/:resourceId", (req, res, next) => {
+router.get("/:resourceId", isAuthenticated, (req, res, next) => {
   const { resourceId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(resourceId)) {
@@ -105,7 +112,7 @@ router.get("/:resourceId", (req, res, next) => {
 });
 
 // SAVE A RESOURCE
-router.post("/:resourceId/save", (req, res, next) => {
+router.post("/:resourceId/save", isAuthenticated, (req, res, next) => {
   const { user } = req.body;
   const { resourceId } = req.params;
   User.findById(user)

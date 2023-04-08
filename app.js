@@ -25,7 +25,7 @@ app.use("/auth/recruiter", require("./routes/authRecruiter.routes"));
 
 app.use("/meetup", require("./routes/meetup.routes"));
 
-app.use("/resource", isAuthenticated, require("./routes/resource.routes"));
+app.use("/resource", require("./routes/resource.routes"));
 
 app.use("/profile", isAuthenticated, require("./routes/profile.routes"));
 
