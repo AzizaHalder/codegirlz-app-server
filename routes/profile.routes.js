@@ -4,9 +4,7 @@ const mongoose = require("mongoose");
 
 const User = require("../models/User.model");
 
-// GET /profile/:profileId --> show user profile
-
-router.get("/", (req, res, next) => {
+router.get("/:profileId", (req, res, next) => {
   const profileId = req.payload._id;
 
   if (!mongoose.Types.ObjectId.isValid(profileId)) {
