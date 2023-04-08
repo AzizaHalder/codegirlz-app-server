@@ -23,7 +23,7 @@ app.use("/auth", require("./routes/auth.routes"));
 
 app.use("/auth/recruiter", require("./routes/authRecruiter.routes"));
 
-app.use("/meetup", isAuthenticated, require("./routes/meetup.routes"));
+app.use("/meetup", require("./routes/meetup.routes"));
 
 app.use("/resource", isAuthenticated, require("./routes/resource.routes"));
 
