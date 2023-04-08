@@ -146,40 +146,6 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
 });
 
-// SAVE A RESOURCE
-// router.post("/:resourceId/save", (req, res, next) => {
-//   const { user } = req.body;
-//   const { resourceId } = req.params;
-//   User.findById(user)
-//     .then((oneUser) => {
-//       if (oneUser.myResource.includes(resourceId)) {
-//         /**@todo remove resource */
-//         // $pull from myResource the resourceId $in this array.
-//         // First we find use we want to update
-//         // Then we decide whether to toggle resource
-//         return User.findByIdAndUpdate(
-//           oneUser._id,
-//           {
-//             $pull: {
-//               myResource: { $in: [resourceId] },
-//             },
-//           },
-//           { new: true }
-//         ).select("-password -email");
-//       } else {
-//         return User.findByIdAndUpdate(
-//           oneUser._id,
-//           {
-//             $push: { myResource: resourceId },
-//           },
-//           { new: true }
-//         ).select("-password -email");
-//       }
-//     })
-//     .then((updatedUser) => res.json(updatedUser))
-//     .catch((error) => res.json(error));
-// });
-
 router.post("/:meetupId/attend", (req, res, next) => {
   const { user } = req.body;
   const { meetupId } = req.params;
@@ -208,16 +174,6 @@ router.post("/:meetupId/attend", (req, res, next) => {
     .then((updatedUser) => res.json(updatedUser))
     .catch((error) => res.json(error));
 });
-
-// GET A SAVED RESOURCE
-// router.get("/save", (req, res, next) => {
-//   const { user } = req.body;
-//   User.find({ user })
-//     .select("-password -email")
-//     .populate("myResource")
-//     .then((savedResources) => res.json(savedResources))
-//     .catch((error) => res.json(error));
-// });
 
 // GET ATTEND(SAVED) MEETUP
 router.get("/attend", (req, res, next) => {
