@@ -4,9 +4,7 @@ const mongoose = require("mongoose");
 
 const User = require("../models/User.model");
 
-// GET /profile/:profileId --> show user profile
-
-router.get("/", (req, res, next) => {
+router.get("/:profileId", (req, res, next) => {
   const profileId = req.payload._id;
 
   if (!mongoose.Types.ObjectId.isValid(profileId)) {
@@ -21,7 +19,7 @@ router.get("/", (req, res, next) => {
 });
 
 // PUT /profile/edit/:profileId --> edit profile profile
-router.put("/edit/:profileId", (req, res, next) => {
+router.put("/:profileId/edit", (req, res, next) => {
   const { profileId } = req.params;
 
   User.findByIdAndUpdate(profileId, req.body, { new: true })
@@ -30,7 +28,7 @@ router.put("/edit/:profileId", (req, res, next) => {
 });
 
 // DELETE /profile/edit/:profileId --> delete profile profile
-router.delete("/edit/:profileId", (req, res, next) => {
+router.delete("/:profileId/edit", (req, res, next) => {
   const { profileId } = req.params;
 
   User.findByIdAndDelete(profileId)
