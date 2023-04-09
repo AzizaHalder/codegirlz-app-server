@@ -18,10 +18,7 @@ const userSchema = new Schema(
     city: { type: String },
     level: {
       type: String,
-      enum: ["Entry Level", "Junior", "Intermediate", "Senior", "Lead"],
-      required: true,
     },
-    // is this a valid match for URL using regex?
     linkedin: {
       type: String,
     },
@@ -35,6 +32,9 @@ const userSchema = new Schema(
     eventsAttended: [{ type: Schema.Types.ObjectId, ref: "Meetup" }],
     myResource: [{ type: Schema.Types.ObjectId, ref: "Resource" }],
     profileImg: {
+      type: String,
+    },
+    description: {
       type: String,
     },
   },

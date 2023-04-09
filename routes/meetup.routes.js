@@ -83,7 +83,7 @@ router.get("/:meetupId", isAuthenticated, (req, res, next) => {
   const { meetupId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(meetupId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
+    res.status(400).json({ errorMessage: "Specified id is not valid" });
     return;
   }
 
@@ -97,7 +97,7 @@ router.put("/edit/:meetupId", isAuthenticated, (req, res, next) => {
   const { meetupId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(meetupId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
+    res.status(400).json({ errorMessage: "Specified id is not valid" });
     return;
   }
 
@@ -111,7 +111,7 @@ router.delete("/edit/:meetupId", isAuthenticated, (req, res, next) => {
   const { meetupId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(meetupId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
+    res.status(400).json({ errorMessage: "Specified id is not valid" });
     return;
   }
 

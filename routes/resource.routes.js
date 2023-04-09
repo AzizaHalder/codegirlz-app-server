@@ -78,7 +78,7 @@ router.put("/edit/:resourceId", isAuthenticated, (req, res, next) => {
   const { resourceId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(resourceId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
+    res.status(400).json({ errorMessage: "Specified id is not valid" });
     return;
   }
 
@@ -101,7 +101,7 @@ router.get("/:resourceId", isAuthenticated, (req, res, next) => {
   const { resourceId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(resourceId)) {
-    res.status(400).json({ message: "Specified id is not valid" });
+    res.status(400).json({ errorMessage: "Specified id is not valid" });
     return;
   }
 
