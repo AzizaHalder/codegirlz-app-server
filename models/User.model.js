@@ -34,6 +34,9 @@ const userSchema = new Schema(
     },
     eventsAttended: [{ type: Schema.Types.ObjectId, ref: "Meetup" }],
     myResource: [{ type: Schema.Types.ObjectId, ref: "Resource" }],
+    profileImg: {
+      type: String,
+    },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
