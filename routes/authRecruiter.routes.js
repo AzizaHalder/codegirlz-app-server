@@ -24,20 +24,20 @@ router.post("/signup", (req, res, next) => {
     city === "" ||
     linkedin === ""
   ) {
-    res.status(400).json({ message: "Provide complete all form fields." });
+    res.status(400).json({ errorMessage: "Provide all form fields." });
     return;
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   if (!emailRegex.test(email)) {
-    res.status(400).json({ message: "Provide a valid email address." });
+    res.status(400).json({ errorMessage: "Provide a valid email address." });
     return;
   }
 
   const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!passwordRegex.test(password)) {
     res.status(400).json({
-      message:
+      errorMessage:
         "Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.",
     });
     return;
@@ -46,7 +46,7 @@ router.post("/signup", (req, res, next) => {
   Recruiter.findOne({ email })
     .then((foundRecruiter) => {
       if (foundRecruiter) {
-        res.status(400).json({ message: "Recruiter already exists." });
+        res.status(400).json({ errorMessage: "Recruiter already exists." });
         return;
       }
 
@@ -86,7 +86,7 @@ router.post("/login", (req, res, next) => {
 
   // Check if email or password are provided as empty string
   if (email === "" || password === "") {
-    res.status(400).json({ message: "Provide email and password." });
+    res.status(400).json({ errorMessage: "Provide email and password." });
     return;
   }
 
@@ -96,7 +96,7 @@ router.post("/login", (req, res, next) => {
       if (!foundRecruiter) {
         res
           .status(401)
-          .json({ message: "Unable to authenticate the recruiter" });
+          .json({ errorMessage: "Unable to authenticate the recruiter" });
         return;
       }
 
@@ -119,7 +119,7 @@ router.post("/login", (req, res, next) => {
       } else {
         res
           .status(401)
-          .json({ message: "Unable to authenticate the recruiter" });
+          .json({ errorMessage: "Unable to authenticate the recruiter" });
       }
     })
     .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.

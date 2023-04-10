@@ -8,7 +8,7 @@ router.get("/:profileId", (req, res, next) => {
   const profileId = req.payload._id;
 
   if (!mongoose.Types.ObjectId.isValid(profileId)) {
-    res.status(400).json({ message: "Specified Profile Id is not valid" });
+    res.status(400).json({ errorMessage: "Specified Profile Id is not valid" });
     return;
   }
 

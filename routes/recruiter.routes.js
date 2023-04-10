@@ -12,7 +12,7 @@ router.get("/:recruiterId", (req, res, next) => {
   console.log("payload", req.payload);
 
   if (!mongoose.Types.ObjectId.isValid(recruiterId)) {
-    res.status(400).json({ message: "Specified Recruiter Id is not valid" });
+    res.status(400).json({ errorMessage: "Specified Recruiter Id is not valid" });
     return;
   }
 
