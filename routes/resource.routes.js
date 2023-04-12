@@ -45,6 +45,20 @@ router.post("/create", isAuthenticated, (req, res, next) => {
     podcastUpload,
   } = req.body;
 
+  if (
+    resourceTitle === ""
+  ) {
+    res.status(400).json({ errorMessage: "Please provide a name for the resource." });
+    return;
+  }
+
+  if (
+    resourceType === ""
+  ) {
+    res.status(400).json({ errorMessage: "Please select a type of resource." });
+    return;
+  }
+
   videoUpload = videoUpload.split("/watch?v=").pop();
   podcastUpload = podcastUpload.split("/episode").pop();
 
