@@ -7,13 +7,11 @@ const resourceSchema = new Schema(
       type: String,
       trim: true,
     },
-    // required
     resourceURL: {
       type: String,
     },
     resourceContent: {
       type: String,
-      required: [true, "Please add your resource."],
     },
     resourceType: {
       type: String,

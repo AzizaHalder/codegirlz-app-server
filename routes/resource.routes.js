@@ -45,6 +45,20 @@ router.post("/create", isAuthenticated, (req, res, next) => {
     podcastUpload,
   } = req.body;
 
+  if (
+    resourceTitle === ""
+  ) {
+    res.status(400).json({ errorMessage: "Please provide a name for the resource." });
+    return;
+  }
+
+  if (
+    resourceType === ""
+  ) {
+    res.status(400).json({ errorMessage: "Please select a type of resource." });
+    return;
+  }
+
   videoUpload = videoUpload.split("/watch?v=").pop();
   podcastUpload = podcastUpload.split("/episode").pop();
 
@@ -83,6 +97,21 @@ router.put("/edit/:resourceId", isAuthenticated, (req, res, next) => {
   }
 
   Resource.findByIdAndUpdate(resourceId, req.body, { new: true })
+    .then((resource) => {
+      if (
+        resource.resourceTitle === ""
+      ) {
+        res.status(400).json({ errorMessage: "Please provide a name for the resource." });
+        return;
+      }
+
+      if (
+        resource.resourceType === ""
+      ) {
+        res.status(400).json({ errorMessage: "Please select a type of resource." });
+        return;
+      }
+    })
     .then((updatedResource) => res.json(updatedResource))
     .catch((error) => res.json(error));
 });

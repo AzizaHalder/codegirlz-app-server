@@ -96,13 +96,14 @@ router.post("/login", (req, res, next) => {
 
       // Compare the provided password with the one saved in the database
       const passwordCorrect = bcrypt.compareSync(password, foundUser.password);
-
+      console.log(passwordCorrect)
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
         const { _id, email, name } = foundUser;
-
+        console.log(foundUser)
         // Create an object that will be set as the token payload
         const payload = { _id, email, name };
+        console.log(payload)
 
         // Create a JSON Web Token and sign it
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
