@@ -128,6 +128,34 @@ router.put("/edit/:meetupId", isAuthenticated, (req, res, next) => {
   }
 
   Meetup.findByIdAndUpdate(meetupId, req.body, { new: true })
+    .then((meetup) => {
+      if (
+        meetup.eventName === ""
+      ) {
+        res.status(400).json({ errorMessage: "Please provide a name for your event." });
+        return;
+      }
+
+      if (
+        meetup.eventType === ""
+      ) {
+        res.status(400).json({ errorMessage: "Please select a type of event." });
+        return;
+      }
+      if (
+        meetup.eventDescription === ""
+      ) {
+        res.status(400).json({ errorMessage: "Please give your event a description." });
+        return;
+      }
+      if (
+        meetup.$isDefaulteventDateAndTime === ""
+      ) {
+        res.status(400).json({ errorMessage: "Please select a date and time for your event event." });
+        return;
+      }
+
+    })
     .then((updatedMeetup) => res.json(updatedMeetup))
     .catch((error) => res.json(error));
 });
