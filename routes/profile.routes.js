@@ -4,9 +4,10 @@ const mongoose = require("mongoose");
 
 const User = require("../models/User.model");
 
-router.get("/:profileId", (req, res, next) => {
-  const profileId = req.payload._id;
+const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
+router.get("/:profileId", (req, res, next) => {
+  const { profileId } = req.params;
   if (!mongoose.Types.ObjectId.isValid(profileId)) {
     res.status(400).json({ errorMessage: "Specified Profile Id is not valid" });
     return;
@@ -19,7 +20,7 @@ router.get("/:profileId", (req, res, next) => {
 });
 
 // PUT /profile/edit/:profileId --> edit profile profile
-router.put("/:profileId/edit", (req, res, next) => {
+router.put("/:profileId/edit", isAuthenticated, (req, res, next) => {
   const { profileId } = req.params;
 
   User.findByIdAndUpdate(profileId, req.body, { new: true })
@@ -28,7 +29,7 @@ router.put("/:profileId/edit", (req, res, next) => {
 });
 
 // DELETE /profile/edit/:profileId --> delete profile profile
-router.delete("/:profileId/edit", (req, res, next) => {
+router.delete("/:profileId/edit", isAuthenticated, (req, res, next) => {
   const { profileId } = req.params;
 
   User.findByIdAndDelete(profileId)
