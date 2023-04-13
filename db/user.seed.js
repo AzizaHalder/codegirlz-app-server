@@ -80,16 +80,93 @@ const users = [{
     "myResource": [],
     "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Boots",
     "description": "I am a ChatPT pro and robotics genius.",
+},
+{
+    "email": "zoe@gmail.com",
+    "password": "$2b$10$vKMSVgTqs.v6mGyJQqqqsO8xrHYMd.VeWRdcMmEuhxOMahfzG.ryK",
+    "name": "Zoe",
+    "currentLocation": "Havana, Cuba",
+    "city": "Havana",
+    "level": "Intermediate",
+    "linkedin": "http://www.linkedin.com/",
+    "github": "https://github.com/",
+    "newOpp": true,
+    "eventsAttended": [],
+    "myResource": [],
+    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Charlie",
+    "description": "I am passionate about educational technology and pioneering AI learning models."
+}, {
+    "email": "ananya@gmail.com",
+    "password": "$2b$10$KOqYu4aKoSbI7RVJqPnQ/.8HE.hRJlOWA/85qDwNSYy47KE.UJkDC",
+    "name": "Ananya",
+    "currentLocation": "Chennai, Tamil Nadu, India",
+    "city": "Chennai",
+    "level": "Entry Level",
+    "linkedin": "http://www.linkedin.com/",
+    "github": "https://github.com/",
+    "newOpp": true,
+    "eventsAttended": [],
+    "myResource": [],
+    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Bailey",
+    "description": "Frontend developer who loves flexbox."
+}, {
+    "email": "jack@gmail.com",
+    "password": "$2b$10$Jj6exCgOXjQkIAYMbVcooOtQFwYcV551VUKgtmodaq.K/rzvhLuIW",
+    "name": "Jack",
+    "currentLocation": "Marco de Canaveses, Portugal",
+    "city": "Marco de Canaveses",
+    "level": "Junior",
+    "linkedin": "http://www.linkedin.com/",
+    "github": "https://github.com/",
+    "newOpp": true,
+    "eventsAttended": [],
+    "myResource": [],
+    "profileImg": "https://api.dicebear.com/6.x/bottts-neutral/svg?seed=Boots",
+    "description": "Ruby on the Rails. SQL. Punk Rock."
+}, {
+    "email": "jada@gmail.com",
+    "password": "$2b$10$bMFv.iGHPCTOWsPjuRGtMexnYMFOSF4f77O6gKBcPDl8xVtzGeAGi",
+    "name": "Jada",
+    "currentLocation": "Tel Aviv University, Tel Aviv-Yafo, Israel",
+    "city": "Tel Aviv",
+    "level": "Entry Level",
+    "linkedin": "http://www.linkedin.com/",
+    "github": "https://github.com/",
+    "newOpp": false,
+    "eventsAttended": [],
+    "myResource": [],
+    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Bob",
+    "description": "Love developing projects which bring communities together. "
+}, {
+    "email": "imani@gmail.com",
+    "password": "$2b$10$1j7NkDS6rKkRxmGSsx0ST.6mM26jDrZuSzY9QPhBOIT.tpdIWy08e",
+    "name": "Imani",
+    "currentLocation": "Osogbo City Hall Olonkoro, Oke Fia Road, Osogbo, Nigeria",
+    "city": "Osogbo",
+    "level": "Intermediate",
+    "linkedin": "http://www.linkedin.com/",
+    "github": "https://github.com/",
+    "newOpp": false,
+    "eventsAttended": [],
+    "myResource": [],
+    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Lilly",
+    "description": "Data lover. Give me a data set and I'll make you a model worth your time."
 }]
 
-const passHashed = users.map(user => {
-    const hash = bcrypt.hashSync(user.password, 10)
-    console.log(user.email)
-    return { ...user, password: hash }
-})
+// const passHashed = users.map(user => {
+//     const hash = bcrypt.hashSync(user.password, 10)
+//     console.log(user.email)
+//     return { ...user, password: hash }
+// })
+
+const userMap = users.map(user => {
+    return user
+});
 
 
-User.create(passHashed).then(resp => console.log(resp)).catch(err => console.log(err));
+// User.create(passHashed).then(resp => console.log(resp)).catch(err => console.log(err));
+User.create(userMap).then(resp => console.log(resp)).catch(err => console.log(err));
+
 
 
 // const resources = [{
@@ -298,9 +375,12 @@ User.create(passHashed).then(resp => console.log(resp)).catch(err => console.log
 //     "comments": []
 // }]
 
-// const resourceMap = resources.map(resource => {
-//     console.log(resource)
-//     return resource
-// })
+// const resourceMap =
+//     resources.map(resource => {
+//         return resource
+//     })
 
-// Resource.create(resourceMap).then(resp => console.log(resp)).catch(err => console.log(err));
+// Resource
+//     .create(resourceMap)
+//     .then(resp => console.log(resp))
+//     .catch(err => console.log(err));
