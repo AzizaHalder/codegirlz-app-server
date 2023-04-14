@@ -1,159 +1,175 @@
 // have an array of database
-// connect to database 
-// call user.create many method using the array 
+// connect to database
+// call user.create many method using the array
 
-const connect = require('./index')
-const User = require('../models/User.model')
-const bcrypt = require('bcrypt')
-const Resource = require('../models/Resource.model')
-const Meetup = require('../models/Meetup.model')
-const Recruiter = require('../models/Recruiter.model')
+const connect = require("./index");
+const User = require("../models/User.model");
+const bcrypt = require("bcrypt");
+const Resource = require("../models/Resource.model");
+const Meetup = require("../models/Meetup.model");
+const Recruiter = require("../models/Recruiter.model");
 
-const users = [{
-    "email": "jerry@gmail.com",
-    "password": "$2b$10$YKPlp4naeNuxl25STuk0lOAIyGuLFOY/BPoeSphYKy81xWWMUx1O.",
-    "name": "Jerry Bell",
-    "currentLocation": "Havana, Cuba",
-    "city": "Narayanganj",
-    "level": "Intermediate",
-    "linkedin": "www.linkedin.com/in/cnicolebell",
-    "github": "https://github.com/ozzleme",
-    "newOpp": true,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/bottts-neutral/svg?seed=Abby",
-    "description": "this is the description of myself.",
-}, {
-
-    "email": "kerri@gmail.com",
-    "password": "$2b$10$MDTVygEKqnakLYnUlHSUm.CvztKR50eu2onZVxUFAXxDmBAG/0Lpa",
-    "name": "Kerri Koziel",
-    "currentLocation": "Sea Bird Apartment, New Kantwadi Road, Pali Hill, Mumbai, Maharashtra, India",
-    "city": "Mumbai",
-    "level": "Junior",
-    "linkedin": "http://www.linkedin.com/",
-    "github": "https://github.com/",
-    "newOpp": true,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Buster",
-    "description": "I am an engineer interested in projects which enable humans to study space using AI and robotics.",
-
-}, {
-
-    "email": "coral@gmail.com",
-    "password": "$2b$10$1ug7QWXuozyeSd8Vni4MHOiKE8NGDeLt7HjbHrtGt1p.rgqVgwKau",
-    "name": "Coral Fin",
-    "currentLocation": "Brisbane Entertainment Centre, Melaleuca Drive, Boondall QLD, Australia",
-    "city": "Brisbane",
-    "level": "Lead",
-    "linkedin": "http://www.linkedin.com/",
-    "github": "https://github.com/",
-    "newOpp": true,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/bottts-neutral/svg?seed=Bob",
-    "description": "I am a MERN stack engineer that is designing the best experience for users. ",
-}, {
-    "email": "maria@gmail.com",
-    "password": "$2b$10$5y4mGVHGpW3VmhpCDQ0n8OibIb/3KkEW.htxp0Jekxpf0AtQRV6c.",
-    "name": "Maria",
-    "currentLocation": "Washington University in St. Louis, Brookings Dr, St. Louis, MO, USA",
-    "city": "St Louis",
-    "level": "Entry Level",
-    "linkedin": "http://www.linkedin.com/",
-    "github": "https://github.com/",
-    "newOpp": false,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Lucy",
-    "description": "I am a frontend developer passionate about creating digital solutions to customer problems. ",
-}, {
-    "email": "rosa@gmail.com",
-    "password": "$2b$10$ILSS0lJrdaoC5CqacPyj8Ob.Qfl7LcAaLPiKOfLYv/DJdwO/B0z0O",
-    "name": "Rosa",
-    "currentLocation": "Lviv National Opera, Svobody Avenue, Lviv, Lviv Oblast, Ukraine",
-    "city": "Lviv",
-    "level": "Entry Level",
-    "linkedin": "http://www.linkedin.com/",
-    "github": "https://github.com/ozzleme",
-    "newOpp": false,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Boots",
-    "description": "I am a ChatPT pro and robotics genius.",
-},
-{
-    "email": "zoe@gmail.com",
-    "password": "$2b$10$vKMSVgTqs.v6mGyJQqqqsO8xrHYMd.VeWRdcMmEuhxOMahfzG.ryK",
-    "name": "Zoe",
-    "currentLocation": "Havana, Cuba",
-    "city": "Havana",
-    "level": "Intermediate",
-    "linkedin": "http://www.linkedin.com/",
-    "github": "https://github.com/",
-    "newOpp": true,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Charlie",
-    "description": "I am passionate about educational technology and pioneering AI learning models."
-}, {
-    "email": "ananya@gmail.com",
-    "password": "$2b$10$KOqYu4aKoSbI7RVJqPnQ/.8HE.hRJlOWA/85qDwNSYy47KE.UJkDC",
-    "name": "Ananya",
-    "currentLocation": "Chennai, Tamil Nadu, India",
-    "city": "Chennai",
-    "level": "Entry Level",
-    "linkedin": "http://www.linkedin.com/",
-    "github": "https://github.com/",
-    "newOpp": true,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Bailey",
-    "description": "Frontend developer who loves flexbox."
-}, {
-    "email": "jack@gmail.com",
-    "password": "$2b$10$Jj6exCgOXjQkIAYMbVcooOtQFwYcV551VUKgtmodaq.K/rzvhLuIW",
-    "name": "Jack",
-    "currentLocation": "Marco de Canaveses, Portugal",
-    "city": "Marco de Canaveses",
-    "level": "Junior",
-    "linkedin": "http://www.linkedin.com/",
-    "github": "https://github.com/",
-    "newOpp": true,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/bottts-neutral/svg?seed=Boots",
-    "description": "Ruby on the Rails. SQL. Punk Rock."
-}, {
-    "email": "jada@gmail.com",
-    "password": "$2b$10$bMFv.iGHPCTOWsPjuRGtMexnYMFOSF4f77O6gKBcPDl8xVtzGeAGi",
-    "name": "Jada",
-    "currentLocation": "Tel Aviv University, Tel Aviv-Yafo, Israel",
-    "city": "Tel Aviv",
-    "level": "Entry Level",
-    "linkedin": "http://www.linkedin.com/",
-    "github": "https://github.com/",
-    "newOpp": false,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Bob",
-    "description": "Love developing projects which bring communities together. "
-}, {
-    "email": "imani@gmail.com",
-    "password": "$2b$10$1j7NkDS6rKkRxmGSsx0ST.6mM26jDrZuSzY9QPhBOIT.tpdIWy08e",
-    "name": "Imani",
-    "currentLocation": "Osogbo City Hall Olonkoro, Oke Fia Road, Osogbo, Nigeria",
-    "city": "Osogbo",
-    "level": "Intermediate",
-    "linkedin": "http://www.linkedin.com/",
-    "github": "https://github.com/",
-    "newOpp": false,
-    "eventsAttended": [],
-    "myResource": [],
-    "profileImg": "https://api.dicebear.com/6.x/pixel-art/svg?seed=Lilly",
-    "description": "Data lover. Give me a data set and I'll make you a model worth your time."
-}]
+const users = [
+  {
+    email: "jerry@gmail.com",
+    password: "$2b$10$YKPlp4naeNuxl25STuk0lOAIyGuLFOY/BPoeSphYKy81xWWMUx1O.",
+    name: "Jerry Bell",
+    currentLocation: "Havana, Cuba",
+    city: "Narayanganj",
+    level: "Intermediate",
+    linkedin: "www.linkedin.com/in/cnicolebell",
+    github: "https://github.com/ozzleme",
+    newOpp: true,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/bottts-neutral/svg?seed=Abby",
+    description: "this is the description of myself.",
+  },
+  {
+    email: "kerri@gmail.com",
+    password: "$2b$10$MDTVygEKqnakLYnUlHSUm.CvztKR50eu2onZVxUFAXxDmBAG/0Lpa",
+    name: "Kerri Koziel",
+    currentLocation:
+      "Sea Bird Apartment, New Kantwadi Road, Pali Hill, Mumbai, Maharashtra, India",
+    city: "Mumbai",
+    level: "Junior",
+    linkedin: "http://www.linkedin.com/",
+    github: "https://github.com/",
+    newOpp: true,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/pixel-art/svg?seed=Buster",
+    description:
+      "I am an engineer interested in projects which enable humans to study space using AI and robotics.",
+  },
+  {
+    email: "coral@gmail.com",
+    password: "$2b$10$1ug7QWXuozyeSd8Vni4MHOiKE8NGDeLt7HjbHrtGt1p.rgqVgwKau",
+    name: "Coral Fin",
+    currentLocation:
+      "Brisbane Entertainment Centre, Melaleuca Drive, Boondall QLD, Australia",
+    city: "Brisbane",
+    level: "Lead",
+    linkedin: "http://www.linkedin.com/",
+    github: "https://github.com/",
+    newOpp: true,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/bottts-neutral/svg?seed=Bob",
+    description:
+      "I am a MERN stack engineer that is designing the best experience for users. ",
+  },
+  {
+    email: "maria@gmail.com",
+    password: "$2b$10$5y4mGVHGpW3VmhpCDQ0n8OibIb/3KkEW.htxp0Jekxpf0AtQRV6c.",
+    name: "Maria",
+    currentLocation:
+      "Washington University in St. Louis, Brookings Dr, St. Louis, MO, USA",
+    city: "St Louis",
+    level: "Entry Level",
+    linkedin: "http://www.linkedin.com/",
+    github: "https://github.com/",
+    newOpp: false,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/pixel-art/svg?seed=Lucy",
+    description:
+      "I am a frontend developer passionate about creating digital solutions to customer problems. ",
+  },
+  {
+    email: "rosa@gmail.com",
+    password: "$2b$10$ILSS0lJrdaoC5CqacPyj8Ob.Qfl7LcAaLPiKOfLYv/DJdwO/B0z0O",
+    name: "Rosa",
+    currentLocation:
+      "Lviv National Opera, Svobody Avenue, Lviv, Lviv Oblast, Ukraine",
+    city: "Lviv",
+    level: "Entry Level",
+    linkedin: "http://www.linkedin.com/",
+    github: "https://github.com/ozzleme",
+    newOpp: false,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/pixel-art/svg?seed=Boots",
+    description: "I am a ChatPT pro and robotics genius.",
+  },
+  {
+    email: "zoe@gmail.com",
+    password: "$2b$10$vKMSVgTqs.v6mGyJQqqqsO8xrHYMd.VeWRdcMmEuhxOMahfzG.ryK",
+    name: "Zoe",
+    currentLocation: "Havana, Cuba",
+    city: "Havana",
+    level: "Intermediate",
+    linkedin: "http://www.linkedin.com/",
+    github: "https://github.com/",
+    newOpp: true,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/pixel-art/svg?seed=Charlie",
+    description:
+      "I am passionate about educational technology and pioneering AI learning models.",
+  },
+  {
+    email: "ananya@gmail.com",
+    password: "$2b$10$KOqYu4aKoSbI7RVJqPnQ/.8HE.hRJlOWA/85qDwNSYy47KE.UJkDC",
+    name: "Ananya",
+    currentLocation: "Chennai, Tamil Nadu, India",
+    city: "Chennai",
+    level: "Entry Level",
+    linkedin: "http://www.linkedin.com/",
+    github: "https://github.com/",
+    newOpp: true,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/pixel-art/svg?seed=Bailey",
+    description: "Frontend developer who loves flexbox.",
+  },
+  {
+    email: "jack@gmail.com",
+    password: "$2b$10$Jj6exCgOXjQkIAYMbVcooOtQFwYcV551VUKgtmodaq.K/rzvhLuIW",
+    name: "Jack",
+    currentLocation: "Marco de Canaveses, Portugal",
+    city: "Marco de Canaveses",
+    level: "Junior",
+    linkedin: "http://www.linkedin.com/",
+    github: "https://github.com/",
+    newOpp: true,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/bottts-neutral/svg?seed=Boots",
+    description: "Ruby on the Rails. SQL. Punk Rock.",
+  },
+  {
+    email: "jada@gmail.com",
+    password: "$2b$10$bMFv.iGHPCTOWsPjuRGtMexnYMFOSF4f77O6gKBcPDl8xVtzGeAGi",
+    name: "Jada",
+    currentLocation: "Tel Aviv University, Tel Aviv-Yafo, Israel",
+    city: "Tel Aviv",
+    level: "Entry Level",
+    linkedin: "http://www.linkedin.com/",
+    github: "https://github.com/",
+    newOpp: false,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/pixel-art/svg?seed=Bob",
+    description: "Love developing projects which bring communities together. ",
+  },
+  {
+    email: "imani@gmail.com",
+    password: "$2b$10$1j7NkDS6rKkRxmGSsx0ST.6mM26jDrZuSzY9QPhBOIT.tpdIWy08e",
+    name: "Imani",
+    currentLocation: "Osogbo City Hall Olonkoro, Oke Fia Road, Osogbo, Nigeria",
+    city: "Osogbo",
+    level: "Intermediate",
+    linkedin: "http://www.linkedin.com/",
+    github: "https://github.com/",
+    newOpp: false,
+    eventsAttended: [],
+    myResource: [],
+    profileImg: "https://api.dicebear.com/6.x/pixel-art/svg?seed=Lilly",
+    description:
+      "Data lover. Give me a data set and I'll make you a model worth your time.",
+  },
+];
 
 // const passHashed = users.map(user => {
 //     const hash = bcrypt.hashSync(user.password, 10)
@@ -161,15 +177,14 @@ const users = [{
 //     return { ...user, password: hash }
 // })
 
-const userMap = users.map(user => {
-    return user
+const userMap = users.map((user) => {
+  return user;
 });
 
-
 // User.create(passHashed).then(resp => console.log(resp)).catch(err => console.log(err));
-User.create(userMap).then(resp => console.log(resp)).catch(err => console.log(err));
-
-
+User.create(userMap)
+  .then((resp) => console.log(resp))
+  .catch((err) => console.log(err));
 
 // const resources = [{
 //     "resourceTitle": "Introduction to ChatGPT: A Practical Guide",
@@ -473,12 +488,6 @@ User.create(userMap).then(resp => console.log(resp)).catch(err => console.log(er
 //     "linkedin": "https://www.linkedin.com/company/google",
 //     "createEvent": [],
 //     "jobCandidates": [],
-//     "createdAt": {
-//         "$date": {
-//             "$numberLong": "1681392396368"
-//         }
-//     }
 // }]
 
 // Recruiter.create(recruiter).then(resp => console.log(resp)).catch(err => console.log(err));
-
