@@ -6,6 +6,8 @@ const connect = require('./index')
 const User = require('../models/User.model')
 const bcrypt = require('bcrypt')
 const Resource = require('../models/Resource.model')
+const Meetup = require('../models/Meetup.model')
+const Recruiter = require('../models/Recruiter.model')
 
 const users = [{
     "email": "jerry@gmail.com",
@@ -384,3 +386,99 @@ User.create(userMap).then(resp => console.log(resp)).catch(err => console.log(er
 //     .create(resourceMap)
 //     .then(resp => console.log(resp))
 //     .catch(err => console.log(err));
+
+// const meetups = [{
+//     "eventName": "How to Use Chat GPT to Up Your Debugging ",
+//     "eventType": "Digital",
+//     "eventCity": "",
+//     "eventLink": "https://us04web.zoom.us/j/2509970057?pwd=ckZQR2hjcmlPWlVOUk1qdWhvay9SZz09",
+//     "eventDescription": "Learn more about How to Debug Code Using ChatGPT\nStep 1: Identify the Problem.\nStep 2: Isolate the Problem.\nStep 3: Reproduce the Problem.\nStep 4: Understand the Code.\nStep 5: Use Debugging Tools.\nStep 6: Test The Fix.\n",
+//     "eventImage": "https://res.cloudinary.com/ddieot9rc/raw/upload/v1681390652/code-girlz/yfjyqog1udpkl1evfsrp",
+//     "eventDateAndTime": "2023-05-08T17:30",
+//     "attendees": [],
+//     "author": {
+//         "$oid": "6437fa454c5f3ec0c72dfdac"
+//     }
+// }, {
+//     "eventName": "Book Club - Women Who Code",
+//     "eventType": "Digital",
+//     "eventCity": "Havana",
+//     "eventLink": "https://us04web.zoom.us/j/2509970057?pwd=ckZQR2hjcmlPWlVOUk1qdWhvay9SZz09",
+//     "eventDescription": "This week we are meeting to discuss The Elephant in the Brain by Kevin Simler. ",
+//     "eventImage": "https://res.cloudinary.com/ddieot9rc/raw/upload/v1681390809/code-girlz/pipukjkp4qclk14t7zzz",
+//     "eventDateAndTime": "2023-05-23T18:30",
+//     "attendees": [],
+//     "author": {
+//         "$oid": "6437fb86e5df2a2687de6df2"
+//     }
+// }, {
+//     "eventName": "Coffee and Coder Chats",
+//     "eventType": "In-Person",
+//     "eventCity": "St Louis",
+//     "eventAddress": "Kaldi's Coffee on Skinker, Skinker Boulevard, St. Louis, MO, USA",
+//     "eventLink": "",
+//     "eventDescription": "Meetup with coders from St. Louis to network.",
+//     "eventImage": "https://res.cloudinary.com/ddieot9rc/raw/upload/v1681391645/code-girlz/exrh9mecfplbotqdjscx",
+//     "eventDateAndTime": "2023-05-24T19:00",
+//     "attendees": [],
+//     "author": {
+//         "$oid": "6437fb86e5df2a2687de6df5"
+//     },
+//     "eventCountry": "146"
+// }, {
+//     "eventName": "Party for A Cause - a Night Out ",
+//     "eventType": "In-Person",
+//     "eventCity": "Tel Aviv",
+//     "eventLink": "",
+//     "eventDescription": "A Night Out for a Cause. Entry Fee goes towards non profit working to develop STEM programs in schools for girls. ",
+//     "eventImage": "https://res.cloudinary.com/ddieot9rc/raw/upload/v1681391942/code-girlz/mzebxnqpjyjghugwztbz",
+//     "eventDateAndTime": "2023-05-19T21:00",
+//     "attendees": [],
+//     "author": {
+//         "$oid": "6437fb86e5df2a2687de6dfa"
+//     },
+//     "eventAddress": "Livingroom TLV, Meitav Street, Tel Aviv-Yafo, Israel",
+//     "eventCountry": "70"
+// }, {
+//     "eventName": "Coffee | Network | Smile",
+//     "eventType": "Digital",
+//     "eventCity": "Berlin",
+//     "eventLink": "https://us04web.zoom.us/j/2509970057?pwd=ckZQR2hjcmlPWlVOUk1qdWhvay9SZz09",
+//     "eventDescription": "Meet up with codergirlz in your area.",
+//     "eventImage": "https://res.cloudinary.com/ddieot9rc/raw/upload/v1681392249/code-girlz/vsf9a7goacx7fna2y8mp",
+//     "eventDateAndTime": "2023-05-29T19:45",
+//     "attendees": [],
+//     "author": {
+//         "$oid": "6437fb86e5df2a2687de6dfa"
+//     },
+//     "eventCountry": "0"
+// }]
+
+// const meetupMap =
+//     meetups.map(meetup => {
+//         return meetup
+//     })
+
+// Meetup
+//     .create(meetupMap)
+//     .then(resp => console.log(resp))
+//     .catch(err => console.log(err));
+
+// const recruiter = [{
+//     "email": "talli@gmail.com",
+//     "password": "$2b$10$X0DmtjzLxBHa2.JDVuC8cuH43MJmCFF.cLysEVkbLk9zBvBzIO7ve",
+//     "recruiterName": "Talli",
+//     "company": "Google",
+//     "city": "Mountain View",
+//     "linkedin": "https://www.linkedin.com/company/google",
+//     "createEvent": [],
+//     "jobCandidates": [],
+//     "createdAt": {
+//         "$date": {
+//             "$numberLong": "1681392396368"
+//         }
+//     }
+// }]
+
+// Recruiter.create(recruiter).then(resp => console.log(resp)).catch(err => console.log(err));
+
