@@ -307,7 +307,7 @@ User.create(userMap).then(resp => console.log(resp)).catch(err => console.log(er
 //     "resourceURL": "",
 //     "resourceContent": "How border-radius works. In extreme depth.",
 //     "resourceType": "Video",
-//     "videoUpload": "https://youtu.be/b9HGzJIcfDE",
+//     "videoUpload": "https://www.youtube.com/watch?v=b9HGzJIcfDE",
 //     "podcastUpload": "",
 //     "author": {
 //         "$oid": "64357e32c0013c822d77d6b5"
@@ -319,7 +319,7 @@ User.create(userMap).then(resp => console.log(resp)).catch(err => console.log(er
 //     "resourceURL": "",
 //     "resourceContent": "JSON Web Tokens (JWT) are talked about all the time, but what exactly are they and how do they work. In this video I will explain in depth exactly what JWT is, how it works, why it is secure, and when you should use it. We will go through multiple visual demonstrations of exactly how and why JWT works. We will also compare JWT to the more common and traditional session based user authorization. By the end of this video you will have a complete understanding of JWT, how it works, and when you should use it.",
 //     "resourceType": "Video",
-//     "videoUpload": "https://youtu.be/7Q17ubqLfaM",
+//     "videoUpload": "https://www.youtube.com/watch?v=7Q17ubqLfaM",
 //     "podcastUpload": "",
 //     "author": {
 //         "$oid": "64357e32c0013c822d77d6b5"
@@ -343,7 +343,7 @@ User.create(userMap).then(resp => console.log(resp)).catch(err => console.log(er
 //     "resourceURL": "",
 //     "resourceContent": "In this video I cover everything you need to know about the useContext hook. I go over all the main use cases for useContext as well as many common mistakes that developers make. This is part of a series of React videos where I cover all the important hooks in React.",
 //     "resourceType": "Video",
-//     "videoUpload": "https://youtu.be/5LrDIWkK_Bc",
+//     "videoUpload": "https://www.youtube.com/watch?v=5LrDIWkK_Bc",
 //     "podcastUpload": "",
 //     "author": {
 //         "$oid": "64357f1fc0013c822d77d6bd"
@@ -355,7 +355,7 @@ User.create(userMap).then(resp => console.log(resp)).catch(err => console.log(er
 //     "resourceURL": "",
 //     "resourceContent": "React is easily one of the single most popular libraries in use today. Given that it was made within a juggernaut like Facebook, you might have assumed it was always destined for success.\n\nWhat if we told you that React’s first brush with the public sphere was anything but glamorous? React.js: The Documentary brings you the full story behind the early days of React, focusing on the dedicated group of developers who helped bring it to the world stage. This story is told by an all-star cast of developers like Tom Occhino, Christopher Chedeau, Pete Hunt, Sebastian Markbåge, Dan Abramov, and many more.",
 //     "resourceType": "Video",
-//     "videoUpload": "https://youtu.be/8pDqJVdNa44",
+//     "videoUpload": "https://www.youtube.com/watch?v=8pDqJVdNa44",
 //     "podcastUpload": "",
 //     "author": {
 //         "$oid": "64357f1fc0013c822d77d6bd"
@@ -367,7 +367,7 @@ User.create(userMap).then(resp => console.log(resp)).catch(err => console.log(er
 //     "resourceURL": "",
 //     "resourceContent": "Learning to program is hard because programming feels different than other skills. But programming isn't about the languages - it is about the way one should think. ",
 //     "resourceType": "Video",
-//     "videoUpload": "https://youtu.be/azcrPFhaY9k",
+//     "videoUpload": "https://www.youtube.com/watch?v=azcrPFhaY9k",
 //     "podcastUpload": "",
 //     "author": {
 //         "$oid": "64357f1fc0013c822d77d6bd"
